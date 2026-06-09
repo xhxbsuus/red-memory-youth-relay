@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>红色记忆·青春接力</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="phone-shell" aria-label="红色记忆青春接力互动作品">
+    <div class="ambient" aria-hidden="true">
+      <span class="glow glow-one"></span>
+      <span class="glow glow-two"></span>
+      <span class="star star-a"></span>
+      <span class="star star-b"></span>
+      <span class="star star-c"></span>
+    </div>
+
+    <header class="topbar">
+      <div class="progress-wrap" aria-label="页面进度">
+        <span id="progressText">01 / 06</span>
+        <div class="progress-track">
+          <i id="progressBar"></i>
+        </div>
+      </div>
+      <button class="icon-btn music-btn" id="musicToggle" type="button" aria-label="开启背景音乐">
+        <span class="music-mark">♪</span>
+      </button>
+    </header>
+
+    <section class="page page-cover is-active" data-page="0">
+      <div class="flag-scene" aria-hidden="true">
+        <div class="flag-pole"></div>
+        <div class="flag">
+          <span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <p class="kicker">建党105周年数字艺术创作大赛</p>
+      <h1>红色记忆<br>青春接力</h1>
+      <p class="subtitle">庆祝中国共产党成立105周年</p>
+      <div class="number-hero" aria-label="数字105">105</div>
+      <p class="lead">回望峥嵘岁月，赓续红色血脉。以青春之我，奔赴强国建设、民族复兴的新征程。</p>
+      <button class="primary-btn" type="button" data-next>开启接力</button>
+    </section>
+
+    <section class="page page-timeline" data-page="1">
+      <p class="kicker">第一站 · 红色时间轴</p>
+      <h2>百年征程中的时代坐标</h2>
+      <p class="section-intro">点击年份，了解关键历史节点。</p>
+      <div class="timeline-list" id="timelineList" aria-label="历史时间轴"></div>
+      <nav class="page-actions">
+        <button class="ghost-btn" type="button" data-prev>返回</button>
+        <button class="primary-btn" type="button" data-next>前往地图</button>
+      </nav>
+    </section>
+
+    <section class="page page-map" data-page="2">
+      <p class="kicker">第二站 · 红色地图打卡</p>
+      <h2>沿着足迹，走近信仰之源</h2>
+      <p class="section-intro">点击地标，点亮红色记忆。</p>
+      <div class="map-card" aria-label="红色地标互动地图">
+        <div class="china-map" id="redMap"></div>
+        <div class="map-legend">
+          <span><i></i> 已点亮地标</span>
+          <strong id="mapCount">0 / 5</strong>
+        </div>
+      </div>
+      <nav class="page-actions">
+        <button class="ghost-btn" type="button" data-prev>返回</button>
+        <button class="primary-btn" type="button" data-next>进入问答</button>
+      </nav>
+    </section>
+
+    <section class="page page-quiz" data-page="3">
+      <p class="kicker">第三站 · 党建知识问答</p>
+      <h2>以知促行，薪火相传</h2>
+      <div class="quiz-panel">
+        <div class="quiz-meta">
+          <span id="quizIndex">第 1 题 / 共 5 题</span>
+          <span id="quizScore">得分 0</span>
+        </div>
+        <h3 id="questionText"></h3>
+        <div class="option-list" id="optionList"></div>
+        <p class="quiz-hint" id="quizHint">请选择一个答案。</p>
+      </div>
+      <nav class="page-actions">
+        <button class="ghost-btn" type="button" data-prev>返回</button>
+        <button class="primary-btn" id="quizNext" type="button">下一题</button>
+      </nav>
+    </section>
+
+    <section class="page page-declare" data-page="4">
+      <p class="kicker">第四站 · 青春宣言</p>
+      <h2>写下你的青春告白</h2>
+      <p class="section-intro">输入姓名，生成属于你的庄严宣言。</p>
+      <label class="name-field" for="userName">
+        <span>姓名</span>
+        <input id="userName" type="text" maxlength="12" placeholder="请输入你的姓名">
+      </label>
+      <button class="primary-btn wide" id="makeDeclaration" type="button">生成宣言</button>
+      <blockquote class="declaration-box" id="declarationBox">
+        我以青春之名，向党告白。
+      </blockquote>
+      <nav class="page-actions">
+        <button class="ghost-btn" type="button" data-prev>返回</button>
+        <button class="primary-btn" type="button" data-next>生成海报</button>
+      </nav>
+    </section>
+
+    <section class="page page-poster" data-page="5">
+      <p class="kicker">终点站 · 分享海报</p>
+      <h2>把红色接力传递下去</h2>
+      <p class="section-intro">海报会根据姓名与答题得分自动生成。</p>
+      <div class="share-card" aria-label="开放式互动二维码">
+        <div class="qr-box">
+          <img id="shareQr" alt="扫码参与互动二维码">
+        </div>
+        <div class="share-info">
+          <strong>扫码参与互动</strong>
+          <input id="shareUrlInput" type="url" aria-label="公开互动链接">
+          <button class="tiny-btn" id="applyShareUrl" type="button">更新二维码</button>
+        </div>
+      </div>
+      <div class="poster-wrap">
+        <canvas id="posterCanvas" width="750" height="1120" aria-label="分享海报"></canvas>
+      </div>
+      <a class="primary-btn wide download-link" id="downloadPoster" download="红色记忆青春接力-分享海报.png">保存海报</a>
+      <nav class="page-actions">
+        <button class="ghost-btn" type="button" data-prev>返回</button>
+        <button class="primary-btn" type="button" id="restartBtn">再走一遍</button>
+      </nav>
+    </section>
+
+    <p class="maker-mark">制作人：马天宇</p>
+  </main>
+
+  <div class="modal" id="infoModal" aria-hidden="true">
+    <div class="modal-mask" data-close-modal></div>
+    <article class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" type="button" data-close-modal aria-label="关闭">×</button>
+      <p class="modal-kicker" id="modalKicker"></p>
+      <h3 id="modalTitle"></h3>
+      <p id="modalBody"></p>
+    </article>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
