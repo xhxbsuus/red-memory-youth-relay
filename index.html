@@ -14,6 +14,10 @@
       <span class="star star-a"></span>
       <span class="star star-b"></span>
       <span class="star star-c"></span>
+      <span class="data-stream stream-a"></span>
+      <span class="data-stream stream-b"></span>
+      <span class="data-stream stream-c"></span>
+      <span class="scan-orbit"></span>
     </div>
 
     <header class="topbar">
@@ -23,6 +27,7 @@
           <i id="progressBar"></i>
         </div>
       </div>
+      <div class="relay-pill" id="relayScore" aria-label="当前接力值">接力值 0</div>
       <button class="icon-btn music-btn" id="musicToggle" type="button" aria-label="开启背景音乐">
         <span class="music-mark">♪</span>
       </button>
@@ -40,6 +45,19 @@
       <p class="subtitle">庆祝中国共产党成立105周年</p>
       <div class="number-hero" aria-label="数字105">105</div>
       <p class="lead">回望峥嵘岁月，赓续红色血脉。以青春之我，奔赴强国建设、民族复兴的新征程。</p>
+      <div class="digital-brief" aria-label="数字接力舱">
+        <span>数字接力舱</span>
+        <strong>红色记忆正在点亮</strong>
+        <em>党史坐标 / 红色足迹 / 青春宣言</em>
+      </div>
+      <div class="mission-grid" aria-label="互动任务">
+        <div><strong>5</strong><span>段党史坐标</span></div>
+        <div><strong>5</strong><span>处红色地标</span></div>
+        <div><strong>10选5</strong><span>随机知识挑战</span></div>
+      </div>
+      <div class="ceremony-strip" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </div>
       <button class="primary-btn" type="button" data-next>开启接力</button>
     </section>
 
@@ -47,6 +65,13 @@
       <p class="kicker">第一站 · 红色时间轴</p>
       <h2>百年征程中的时代坐标</h2>
       <p class="section-intro">点击年份，了解关键历史节点。</p>
+      <div class="task-panel">
+        <div>
+          <strong id="timelineProgress">已学习 0 / 5</strong>
+          <span>点亮全部坐标，可获得“党史寻光者”徽章。</span>
+        </div>
+        <div class="badge-row" id="timelineBadgeRow" aria-label="时间轴成就徽章"></div>
+      </div>
       <div class="timeline-list" id="timelineList" aria-label="历史时间轴"></div>
       <nav class="page-actions">
         <button class="ghost-btn" type="button" data-prev>返回</button>
@@ -60,10 +85,15 @@
       <p class="section-intro">点击地标，点亮红色记忆。</p>
       <div class="map-card" aria-label="红色地标互动地图">
         <div class="china-map" id="redMap"></div>
+        <div class="map-console" aria-label="地图坐标控制台">
+          <strong id="mapSignal">坐标待激活</strong>
+          <span>点击地标后，红色足迹路线将被逐步点亮。</span>
+        </div>
         <div class="map-legend">
           <span><i></i> 已点亮地标</span>
           <strong id="mapCount">0 / 5</strong>
         </div>
+        <p class="map-achievement" id="mapAchievement">沿着红色足迹出发，完成 5 处打卡即可点亮全图。</p>
       </div>
       <nav class="page-actions">
         <button class="ghost-btn" type="button" data-prev>返回</button>
@@ -79,9 +109,15 @@
           <span id="quizIndex">第 1 题 / 共 5 题</span>
           <span id="quizScore">得分 0</span>
         </div>
+        <div class="quiz-stats">
+          <span id="quizAccuracy">正确率 0%</span>
+          <span id="quizStreak">连续答对 0</span>
+        </div>
+        <p class="quiz-random">本轮题目与选项已随机生成，每位参与者的答题顺序都不同。</p>
         <h3 id="questionText"></h3>
         <div class="option-list" id="optionList"></div>
         <p class="quiz-hint" id="quizHint">请选择一个答案。</p>
+        <div class="quiz-explain" id="quizExplain" hidden></div>
       </div>
       <nav class="page-actions">
         <button class="ghost-btn" type="button" data-prev>返回</button>
@@ -97,6 +133,15 @@
         <span>姓名</span>
         <input id="userName" type="text" maxlength="12" placeholder="请输入你的姓名">
       </label>
+      <div class="pledge-panel" aria-label="选择青春关键词">
+        <strong>选择青春关键词</strong>
+        <div class="pledge-chips">
+          <button class="chip is-active" type="button" data-pledge="理想">理想</button>
+          <button class="chip is-active" type="button" data-pledge="奋斗">奋斗</button>
+          <button class="chip" type="button" data-pledge="担当">担当</button>
+          <button class="chip" type="button" data-pledge="创新">创新</button>
+        </div>
+      </div>
       <button class="primary-btn wide" id="makeDeclaration" type="button">生成宣言</button>
       <blockquote class="declaration-box" id="declarationBox">
         我以青春之名，向党告白。
@@ -111,6 +156,8 @@
       <p class="kicker">终点站 · 分享海报</p>
       <h2>把红色接力传递下去</h2>
       <p class="section-intro">海报会根据姓名与答题得分自动生成。</p>
+      <div class="poster-summary" id="posterSummary" aria-label="接力成果概览"></div>
+      <div class="badge-wall" id="badgeWall" aria-label="我的红色勋章墙"></div>
       <div class="share-card" aria-label="开放式互动二维码">
         <div class="qr-box">
           <img id="shareQr" alt="扫码参与互动二维码">
@@ -132,6 +179,17 @@
     </section>
 
     <p class="maker-mark">制作人：马天宇</p>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="medal-overlay" id="medalOverlay" aria-hidden="true">
+      <div class="medal-stage">
+        <div class="medal-rays"></div>
+        <div class="medal-coin">
+          <span id="medalSymbol">★</span>
+        </div>
+        <strong id="medalTitle">获得勋章</strong>
+        <p id="medalSub">红色记忆已点亮</p>
+      </div>
+    </div>
   </main>
 
   <div class="modal" id="infoModal" aria-hidden="true">
@@ -140,7 +198,7 @@
       <button class="modal-close" type="button" data-close-modal aria-label="关闭">×</button>
       <p class="modal-kicker" id="modalKicker"></p>
       <h3 id="modalTitle"></h3>
-      <p id="modalBody"></p>
+      <div id="modalBody"></div>
     </article>
   </div>
 
